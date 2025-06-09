@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Career Predictor</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+    input, button { width: 100%; padding: 10px; margin: 10px 0; }
+    #result { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <h2>Career Predictor by Ubunifu Group</h2>
+
+  <!-- Example inputs: replace with your model's real features -->
+  <label>Age: <input type="number" id="age" /></label>
+  <label>Education Level: <input type="text" id="education" /></label>
+  <label>Database Fundamentals: <input type="text" id="DatabaseFundamentals" /></label>
+<label>Database Fundamentals: <input type="text" id="DatabaseFundamentals" /></label>
+<label>Computer Architecture: <input type="text" id="ComputerArchitecture" /></label>
+<label>Distributed Computing Systems: <input type="text" id="DistributedComputingSystems" /></label>
+<label>Cyber Security: <input type="text" id="CyberSecurity" /></label>
+<label>Networking: <input type="text" id="Networking" /></label>
+<label>Software Development: <input type="text" id="SoftwareDevelopment" /></label>
+<label>Programming Skills: <input type="text" id="ProgrammingSkills" /></label>
+<label>Project Management: <input type="text" id="ProjectManagement" /></label>
+<label>Computer Forensics Fundamentals: <input type="text" id="ComputerForensicsFundamentals" /></label>
+<label>Technical Communication: <input type="text" id="TechnicalCommunication" /></label>
+<label>AI ML: <input type="text" id="AIML" /></label>
+<label>Software Engineering: <input type="text" id="SoftwareEngineering" /></label>
+<label>Business Analysis: <input type="text" id="BusinessAnalysis" /></label>
+<label>Communication skills: <input type="text" id="Communicationskills" /></label>
+<label>Data Science: <input type="text" id="DataScience" /></label>
+<label>Troubleshooting skills: <input type="text" id="Troubleshootingskills" /></label>
+<label>Graphics Designing: <input type="text" id="GraphicsDesigning" /></label>
+<label>Openness: <input type="text" id="Openness" /></label>
+<label>Conscientousness: <input type="text" id="Conscientousness" /></label>
+<label>Extraversion: <input type="text" id="Extraversion" /></label>
+<label>Agreeableness: <input type="text" id="Agreeableness" /></label>
+<label>Emotional_Range: <input type="text" id="Emotional_Range" /></label>
+<label>Conversation: <input type="text" id="Conversation" /></label>
+<label>Openness to Change: <input type="text" id="OpennesstoChange" /></label>
+<label>Hedonism: <input type="text" id="Hedonism" /></label>
+<label>Self-enhancement: <input type="text" id="Selfenhancement" /></label>
+<label>Self-transcendence: <input type="text" id="Selftranscendence" /></label>	
+	
+
+  <button onclick="predict()">Predict Career</button>
+
+  <div id="result">Prediction will appear here.</div>
+
+  <script>
+    async function predict() {
+      const age = document.getElementById("age").value;
+      const education = document.getElementById("education").value;
+
+      const url = "http://3e3012d5-44e4-4365-a43b-234d667eabff.eastus2.azurecontainer.io/score"; // ⬅️ Replace this
+      const apiKey = "<your-api-key>"; // ⬅️ Replace this (for testing only — don’t expose in production)
+
+      const payload = {
+        data: [
+          {
+            "age": parseInt(age),
+            "education": education
+          }
+        ]
+      };
+
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + apiKey
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const result = await response.json();
+        document.getElementById("result").innerText = "Prediction: " + JSON.stringify(result);
+      } catch (error) {
+        document.getElementById("result").innerText = "Error: " + error.message;
+      }
+    }
+  </script>
+</body>
+</html>
